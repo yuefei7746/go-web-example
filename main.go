@@ -18,7 +18,7 @@ const (
 	serverReadTimeout     = 5 * time.Second
 	serverWriteTimeout    = 5 * time.Second
 	serverShutdownTimeout = 3 * time.Second
-	serverMaxHeaderBytes = 1 << 20
+	serverMaxHeaderBytes  = 1 << 20
 
 	ProductionMode  = "prod"
 	DevelopmentMode = "dev"
@@ -73,4 +73,5 @@ func listenAndServe(router *gin.Engine) {
 	}
 
 	utils.Logger.Info("Server exiting")
+	utils.LoggerFlush()
 }

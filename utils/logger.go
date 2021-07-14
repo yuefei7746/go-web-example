@@ -6,6 +6,7 @@ import (
 	"go.uber.org/zap/zapcore"
 	"gopkg.in/natefinch/lumberjack.v2"
 	"io"
+	"log"
 	"os"
 	"path/filepath"
 	"time"
@@ -47,6 +48,15 @@ func InitLog(logHome string, logLevel zapcore.Level, outToFile bool) {
 		zap.AddStacktrace(zap.WarnLevel),
 	)
 	SugarLogger = Logger.Sugar()
+}
+
+// LoggerFlush 刷新 logger 缓冲区
+func LoggerFlush() {
+	err := Logger.Sync()
+	if err != nil {
+		// 记录到系统输出流
+		log.Println("flush zap logger error : ", err.Error())
+	}
 }
 
 func newConsoleWriter(config zapcore.EncoderConfig, logLevel zapcore.Level) []zapcore.Core {
